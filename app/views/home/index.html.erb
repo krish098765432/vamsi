@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <%= csrf_meta_tags %> <!-- Rails CSRF protection -->
+  <%= csp_meta_tag %> <!-- Content Security Policy -->
+</head>
+<body>
+  <header>
+    <h1>Welcome to Our Website</h1>
+    <nav>
+      <ul>
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Contact", contact_path %></li>
+      </ul>
+    </nav>
+  </header>
+  <h1>Welcome, <%= current_user.email %></h1>
+
+<!-- Display friends -->
+<h2>Your Friends</h2>
+<ul>
+  <% @friends.each do |friend| %>
+    <li><%= friend.email %></li>
+  <% end %>
+</ul>
+
+<!-- Display pending friend requests -->
+<h2>Pending Friend Requests</h2>
+<ul>
+  <% @pending_requests.each do |request| %>
+    <li>
+      <%= request.friend.email %> - 
+      <%= link_to 'Accept', accept_friend_request_path(request.friend) %> | 
+      <%= link_to 'Reject', reject_friend_request_path(request.friend) %>
+    </li>
+  <% end %>
+</ul>
+
+<!-- Send friend request form -->
+<h2>Send a Friend Request</h2>
+<%= form_with(url: send_friend_request_path, method: :post) do |form| %>
+  <%= form.label :friend_email, 'Friend Email' %>
+  <%= form.text_field :friend_email %>
+  <%= form.submit 'Send Request' %>
+<% end %>

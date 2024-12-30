@@ -1,0 +1,15 @@
+/* This is a manifest file that'll be compiled into application.css, which will include all the files
+   listed below.
+   *
+   *= require_self
+   *= require_tree .
+   */
+
+/* Add your CSS rules here */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  /* More custom styles for your application */
+  
